@@ -4,16 +4,17 @@ import { jsx } from "@emotion/react";
 import { useState } from "react";
 import "@reach/dialog/styles.css";
 import { Button, Input, CustomDialog, Spinner } from "./components/lib";
+import { useAuth } from "./context/AuthContext";
+import { auth } from "./firebase";
 
 function LoginForm({ buttonText, onSubmit }) {
+  const { signup } = useAuth();
+
   function handleSubmit(e) {
     e.preventDefault();
-    const { username, password } = e.target.elements;
+    const { email, password } = e.target.elements;
 
-    onSubmit({
-      username: username.value,
-      password: password.value,
-    });
+    signup(auth, email.value, password.value);
   }
   return (
     <div>
@@ -26,8 +27,8 @@ function LoginForm({ buttonText, onSubmit }) {
           "> div": { margin: "10px auto", maxWidth: "350px", width: "100%" },
         }}>
         <div css={{ display: "flex", flexDirection: "column" }}>
-          <label htmlFor='username'>Username</label>
-          <Input id='username' />
+          <label htmlFor='email'>Email</label>
+          <Input id='email' />
         </div>
         <div css={{ display: "flex", flexDirection: "column" }}>
           <label htmlFor='password'>Password</label>
@@ -42,12 +43,12 @@ function LoginForm({ buttonText, onSubmit }) {
   );
 }
 
-function Unauthenticated() {
+function Unauthenticated({ login, register }) {
   const [showDialog, setShowDialog] = useState("none");
 
-  function login(formData) {
-    console.log("login", formData);
-  }
+  //   function login(formData) {
+  //     console.log("login", formData);
+  //   }
   function register(formData) {
     console.log("register", formData);
   }
