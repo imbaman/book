@@ -8,13 +8,13 @@ import { useAuth } from "./context/AuthContext";
 import { auth } from "./firebase";
 
 function LoginForm({ buttonText, onSubmit }) {
-  const { signup } = useAuth();
+  //   const { signup } = useAuth();
 
   function handleSubmit(e) {
     e.preventDefault();
     const { email, password } = e.target.elements;
 
-    signup(auth, email.value, password.value);
+    onSubmit(auth, email.value, password.value);
   }
   return (
     <div>
@@ -43,15 +43,15 @@ function LoginForm({ buttonText, onSubmit }) {
   );
 }
 
-function Unauthenticated({ login, register }) {
+function Unauthenticated() {
   const [showDialog, setShowDialog] = useState("none");
-
+  const { signup, login } = useAuth();
   //   function login(formData) {
   //     console.log("login", formData);
   //   }
-  function register(formData) {
-    console.log("register", formData);
-  }
+  //   function register(formData) {
+  //     console.log("register", formData);
+  //   }
   return (
     <div
       css={{
@@ -86,7 +86,7 @@ function Unauthenticated({ login, register }) {
           isOpen={showDialog === "register"}
           aria-label='Register form'>
           <p>register</p>
-          <LoginForm buttonText={"register"} onSubmit={register} />
+          <LoginForm buttonText={"register"} onSubmit={signup} />
         </CustomDialog>
       </div>
     </div>
