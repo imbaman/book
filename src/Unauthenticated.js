@@ -1,21 +1,76 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "@reach/dialog/styles.css";
 import { Button, Input, CustomDialog, Spinner } from "./components/lib";
 import { useAuth } from "./context/AuthContext";
 import { auth } from "./firebase";
 
-function LoginForm({ buttonText, onSubmit }) {
-  //   const { signup } = useAuth();
+//  clean this up
+//
+//
+
+function LoginForm({ buttonText }) {
+  const { loginAsGuest, login } = useAuth();
 
   function handleSubmit(e) {
     e.preventDefault();
-    const { email, password } = e.target.elements;
-
-    onSubmit(auth, email.value, password.value);
   }
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  return (
+    <div>
+      <form
+        onSubmit={handleSubmit}
+        css={{
+          "> div": { margin: "10px auto", maxWidth: "350px", width: "100%" },
+        }}>
+        <div css={{ display: "flex", flexDirection: "column" }}>
+          <Button
+            onClick={() => {
+              loginAsGuest(auth);
+            }}>
+            Log in as a guest
+          </Button>
+        </div>
+
+        <div css={{ display: "flex", flexDirection: "column" }}>
+          <label htmlFor='email'>Email</label>
+          <Input id='email' ref={emailRef} placeholder='test@321.com' />
+        </div>
+        <div css={{ display: "flex", flexDirection: "column" }}>
+          <label htmlFor='password'>Password</label>
+          <Input
+            id='password'
+            ref={passwordRef}
+            type='password'
+            placeholder='test123'
+          />
+        </div>
+        <div>
+          <Button
+            onClick={() =>
+              login(auth, emailRef.current.value, passwordRef.current.value)
+            }>
+            {buttonText}
+          </Button>
+          <Spinner />
+        </div>
+      </form>
+    </div>
+  );
+}
+
+function RegisterForm({ buttonText }) {
+  const { signup } = useAuth();
+  const passwordRef = useRef();
+  const emailRef = useRef();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
+
   return (
     <div>
       <form
@@ -28,14 +83,25 @@ function LoginForm({ buttonText, onSubmit }) {
         }}>
         <div css={{ display: "flex", flexDirection: "column" }}>
           <label htmlFor='email'>Email</label>
-          <Input id='email' />
+          <Input id='email' ref={emailRef} placeholder='test@321.com' />
         </div>
         <div css={{ display: "flex", flexDirection: "column" }}>
           <label htmlFor='password'>Password</label>
-          <Input id='password' type='password' />
+          <Input
+            id='password'
+            ref={passwordRef}
+            type='password'
+            placeholder='test123'
+          />
         </div>
         <div>
-          <Button type='submit'>{buttonText}</Button>
+          <Button
+            type='submit'
+            onClick={() => {
+              signup(auth, emailRef.current.value, passwordRef.current.value);
+            }}>
+            {buttonText}
+          </Button>
           <Spinner />
         </div>
       </form>
@@ -45,13 +111,7 @@ function LoginForm({ buttonText, onSubmit }) {
 
 function Unauthenticated() {
   const [showDialog, setShowDialog] = useState("none");
-  const { signup, login } = useAuth();
-  //   function login(formData) {
-  //     console.log("login", formData);
-  //   }
-  //   function register(formData) {
-  //     console.log("register", formData);
-  //   }
+
   return (
     <div
       css={{
@@ -67,6 +127,7 @@ function Unauthenticated() {
           height: "100%",
         }}>
         <h1>Logo</h1>
+
         <div css={{ display: "flex" }}>
           <Button onClick={() => setShowDialog("login")}>Log In</Button>
           <Button color='white' onClick={() => setShowDialog("register")}>
@@ -79,14 +140,15 @@ function Unauthenticated() {
           isOpen={showDialog === "login"}
           aria-label='Login form'>
           <p>login</p>
-          <LoginForm buttonText={"login"} onSubmit={login} />
+          <LoginForm buttonText={"login"} showDialog={showDialog} />
         </CustomDialog>
+
         <CustomDialog
           onDismiss={() => setShowDialog("false")}
           isOpen={showDialog === "register"}
           aria-label='Register form'>
           <p>register</p>
-          <LoginForm buttonText={"register"} onSubmit={signup} />
+          <RegisterForm buttonText={"register"} />
         </CustomDialog>
       </div>
     </div>
