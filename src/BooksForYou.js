@@ -4,10 +4,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Input, Spinner } from "./components/lib";
 import { FaSearch } from "react-icons/fa";
-import { useAuth } from "./context/AuthContext";
 
 const BooksForYou = () => {
-  const { user, logout } = useAuth();
   const [query, setQuery] = useState("");
   const [queried, setQueried] = useState(false);
   const [data, setData] = useState(null);
@@ -43,10 +41,6 @@ const BooksForYou = () => {
 
   return (
     <>
-      <nav>
-        {user.email}
-        <button onClick={logout}>Log out</button>
-      </nav>
       <div
         css={{
           maxWidth: 800,
