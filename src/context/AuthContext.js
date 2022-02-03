@@ -4,6 +4,7 @@ import {
   signOut,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInAnonymously,
 } from "firebase/auth";
 import { auth } from "../firebase";
 
@@ -42,11 +43,19 @@ export const AuthProvider = ({ children }) => {
     await signOut(auth);
   };
 
+  const loginAsGuest = async () => {
+    try {
+      await signInAnonymously(auth);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const value = {
     user,
     signup,
     logout,
     login,
+    loginAsGuest,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
