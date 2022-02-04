@@ -2,8 +2,10 @@
 import { jsx } from "@emotion/react";
 import React from "react";
 import { useState, useEffect } from "react";
-import { Input, Spinner } from "./components/lib";
+import { Input, Spinner, BookListUl } from "./lib";
 import { FaSearch } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import Book from "./Book";
 
 const BooksForYou = () => {
   const [query, setQuery] = useState("");
@@ -45,14 +47,14 @@ const BooksForYou = () => {
         css={{
           maxWidth: 800,
           margin: "auto",
-          width: "90vw",
-          padding: "40px 0",
+          width: "90%",
+          // padding: "40px 0",
         }}>
         <form onSubmit={handleSearchSubmit}>
           <Input
             placeholder='looking for some books?'
             id='search'
-            css={{ width: "50%" }}
+            css={{ width: "70%" }}
           />
           <label htmlFor='search'>
             <button
@@ -71,18 +73,20 @@ const BooksForYou = () => {
         <>
           {isSuccess ? (
             data?.map((item) => (
-              <ul>
-                <li>{item.volumeInfo.title}</li>
-                <li>
-                  <img src={item.volumeInfo.imageLinks?.thumbnail} alt='' />
-                </li>
-                <li>
-                  <p>{item.volumeInfo.authors}</p>
-                </li>
-                <li>
-                  <p>{item.volumeInfo.description}</p>
-                </li>
-              </ul>
+              <BookListUl>
+                <Link to={`book/${item.id}`}>
+                  <li>{item.volumeInfo.title}</li>
+                  <li>
+                    <img src={item.volumeInfo.imageLinks?.thumbnail} alt='' />
+                  </li>
+                  <li>
+                    <p>{item.volumeInfo.authors}</p>
+                  </li>
+                  <li>
+                    <p>{item.volumeInfo.description}</p>
+                  </li>
+                </Link>
+              </BookListUl>
             ))
           ) : (
             <p>no books found</p>
