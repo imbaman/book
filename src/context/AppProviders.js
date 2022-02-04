@@ -1,10 +1,12 @@
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./AuthContext";
 
 const AppProviders = ({ children }) => {
   return (
-    <AuthProvider>
-      <UserProvider>{children}</UserProvider>
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>{children}</AuthProvider>
+    </BrowserRouter>
   );
 };
 
