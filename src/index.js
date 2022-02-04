@@ -1,14 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import "./styles/global.css";
+import "bootstrap/dist/css/bootstrap-reboot.css";
 import App from "./App";
-import { AuthProvider } from "./context/AuthContext";
 
+import AppProviders from "./context/AppProviders";
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProvider>
+    <AppProviders>
       <App />
-    </AuthProvider>
+    </AppProviders>
   </React.StrictMode>,
   document.getElementById("root")
 );
