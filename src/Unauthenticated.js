@@ -117,6 +117,7 @@ function Unauthenticated() {
       css={{
         backgroundImage: "linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%)",
         height: "100vh",
+        width: "100%",
       }}>
       <div
         css={{
