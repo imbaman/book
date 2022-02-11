@@ -1,8 +1,27 @@
 #root {
-  color: #434449;
+  color: #222831;
+  background-color: #ffff;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+a:not(:hover),
+a:not(:focus) {
+  text-decoration: none;
+  color: #222831;
+}
+
+a:hover,
+a:focus {
+  color: #ffe55c;
+}
+
+button {
+  background-color: #fff;
+}
+button:hover {
+  background-color: #ffe59c;
 }
