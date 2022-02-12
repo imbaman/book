@@ -22,27 +22,45 @@ const FavoriteBooks = (filtered) => {
     getData();
   }, []);
 
-  // const filterData = (data, user) => {
-  //   let filtered = data?.filter((i) => {
-  //     return i.ownerId === user.uid;
-  //   });
-  // };
-  // filterData();
-  // console.log(filtered);
-  console.log(user.uid, data);
+  // console.log(user.uid, data);
 
-  return (
+  function handleRemove(id) {
+    const newList = data.filter((i) => i.id !== id);
+    setData(newList);
+  }
+
+  return data.length === 0 ? (
+    <div
+      style={{
+        textAlign: "center",
+        padding: "50px",
+        // display: "flex",
+        // alignItems: "center",
+        // justifyContent: "center",
+        // height: "20vh",
+      }}>
+      <p>Hey! You don't have any favorite books :/</p>
+    </div>
+  ) : (
     <div>
-      {/* <p>fav books</p>
-      <p>im from firebase {data[0]?.author}</p> */}
-      {data.map((data) => (
-        <BookListUl>
-          <img src={data.img} alt='' />
-          <li>{data.author}</li>
-          <li>{data.title}</li>
-          <li>{data?.desc?.replace(/(<([^>]+)>)/gi, "")}</li>
-        </BookListUl>
-      ))}
+      <BookListUl>
+        {data.map((data) => (
+          <>
+            <li key={data.id}>
+              <img src={data.img} alt='' />
+              <p>{data.author}</p>
+              <p>{data.title}</p>
+              <p>{data?.desc?.replace(/(<([^>]+)>)/gi, "")}</p>
+              <button
+                onClick={() => {
+                  handleRemove(data.id);
+                }}>
+                Remove from Fav
+              </button>
+            </li>
+          </>
+        ))}
+      </BookListUl>
     </div>
   );
 };
