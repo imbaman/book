@@ -1,19 +1,29 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
+import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
+
+const LinkCustom = styled(Link)({
+  ":hover": { textDecoration: "underline" },
+  ":focus": { color: "inherit" },
+});
 
 const Nav = () => {
   return (
     <nav css={{ position: "sticky", top: "5em" }}>
-      <ul>
+      <ul
+        css={{
+          fontSize: "1rem",
+          fontWeight: "200",
+        }}>
         <li>
-          <Link to='/'>My library</Link>
+          <LinkCustom to='/'>My library</LinkCustom>
         </li>
         <li>
-          <Link to='fav'>Favorite books</Link>
+          <LinkCustom to='fav'>Favorite books</LinkCustom>
         </li>
         <li>
-          <Link to='booksearch'>Books for you</Link>
+          <LinkCustom to='booksearch'>Books for you</LinkCustom>
         </li>
       </ul>
     </nav>
