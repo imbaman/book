@@ -4,8 +4,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Input, Spinner, BookListUl } from "./lib";
 import { FaSearch } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import Book from "./Book";
+import BookCard from "./BookCard";
 
 const BooksForYou = () => {
   const [query, setQuery] = useState("");
@@ -54,7 +53,7 @@ const BooksForYou = () => {
           <Input
             placeholder='looking for some books?'
             id='search'
-            css={{ width: "70%" }}
+            css={{ width: "70%", marginBottom: "1em" }}
           />
           <label htmlFor='search'>
             <button
@@ -71,26 +70,17 @@ const BooksForYou = () => {
           </label>
         </form>
         <>
-          {isSuccess ? (
-            data?.map((item) => (
-              <BookListUl>
-                <Link to={`book/${item.id}`}>
-                  <li>{item.volumeInfo.title}</li>
-                  <li>
-                    <img src={item.volumeInfo.imageLinks?.thumbnail} alt='' />
-                  </li>
-                  <li>
-                    <p>{item.volumeInfo.authors}</p>
-                  </li>
-                  <li>
-                    <p>{item.volumeInfo.description}</p>
-                  </li>
-                </Link>
-              </BookListUl>
-            ))
-          ) : (
-            <p>no books found</p>
-          )}
+          <BookListUl>
+            {isSuccess ? (
+              data?.map((item) => (
+                <li key={item.id}>
+                  <BookCard item={item} />
+                </li>
+              ))
+            ) : (
+              <p>hey hey, let's discover books! </p>
+            )}
+          </BookListUl>
         </>
       </div>
     </>
