@@ -2,7 +2,7 @@
 import { jsx } from "@emotion/react";
 import BooksForYou from "./components/BooksForYou";
 import { useAuth } from "./context/AuthContext";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import FavoriteBooks from "./components/FavoriteBooks";
 import Book from "./components/Book";
 import MyLibrary from "./components/MyLibrary";
@@ -19,7 +19,7 @@ const Authenticated = () => {
         width: "100%",
         display: "grid",
         gridGap: "3em",
-        gridTemplateColumns: "3fr 9fr",
+        gridTemplateColumns: "2fr 9fr",
         "@media (max-width:420px)": {
           gridTemplateColumns: "1fr",
           grodTemplateRows: "auto",
@@ -53,13 +53,28 @@ const Authenticated = () => {
     </div>
   );
 
+  function NotFound() {
+    return (
+      <div
+        css={{
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}>
+        <div>Sorry... nothing here.</div>
+      </div>
+    );
+  }
+
   function RoutesConfig() {
     return (
       <Routes>
         <Route path='/' element={<MyLibrary />} />
         <Route path='/fav' element={<FavoriteBooks />} />
-        <Route path='booksearch/book/:bookId' element={<Book />} />
+        <Route path='book/:bookId' element={<Book />} />
         <Route path='/booksearch' element={<BooksForYou />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     );
   }
