@@ -7,12 +7,20 @@ import { ImSpinner9 } from "react-icons/im";
 //media queries
 const small = "@media (max-width:991px)";
 
+const BookListUl = styled.ul({
+  listStyle: "none",
+  padding: "0",
+  display: "grid",
+  gridTemplateRows: "repeat(auto-fill, minmax(100px, 1fr))",
+  gridGap: "1em",
+});
+
 const spin = keyframes({
   "0%": { transform: "rotate(0deg)" },
   "100%": { transform: "rotate(360deg)" },
 });
 const Spinner = styled(ImSpinner9)({
-  animation: `${spin} 1s linear infinite`,
+  animation: `${spin} 0.5s linear infinite`,
 });
 
 const CustomDialog = styled(Dialog)({
@@ -46,4 +54,4 @@ const Input = styled.input({
   padding: "8px 12px",
 });
 
-export { Button, Input, CustomDialog, Spinner };
+export { Button, Input, CustomDialog, Spinner, BookListUl };
