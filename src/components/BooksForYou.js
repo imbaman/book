@@ -33,6 +33,20 @@ const BooksForYou = () => {
     getData();
   }, [query, queried]);
 
+  //fetch dummy data
+  useEffect(() => {
+    setStatus("loading");
+    const getData = async () => {
+      const data = await fetch(
+        `https://books.googleapis.com/books/v1/volumes?q=cat&langRestrict=en&filter=paid-ebooks&orderBy=relevance&printType=BOOKS&key=${process.env.REACT_APP_API_KEY}`
+      );
+      const responseData = await data.json();
+      setData(responseData.items);
+      setStatus("success");
+    };
+    getData();
+  }, []);
+
   function handleSearchSubmit(e) {
     e.preventDefault();
     // console.log(e.target.elements.search.value);
@@ -78,7 +92,7 @@ const BooksForYou = () => {
                 </li>
               ))
             ) : (
-              <p>hey hey, let's discover books! </p>
+              <Spinner />
             )}
           </BookListUl>
         </>
