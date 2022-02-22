@@ -7,7 +7,7 @@ import FavoriteBooks from "./components/FavoriteBooks";
 import Book from "./components/Book";
 import MyLibrary from "./components/MyLibrary";
 import Nav from "./Nav";
-
+import * as colors from "./styles/colors";
 const Authenticated = () => {
   const { user, logout } = useAuth();
 
@@ -30,7 +30,7 @@ const Authenticated = () => {
       <div>
         <div
           css={{
-            backgroundColor: "#ffe55c",
+            backgroundColor: colors.earth,
             display: "flex",
             alignItems: "center",
             position: "absolute",
