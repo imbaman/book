@@ -13,12 +13,14 @@ import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 import { BookListUl, CustomDialog } from "./lib";
 import { FaStar } from "react-icons/fa";
-const FavoriteBooks = (filtered) => {
+
+const FavoriteBooks = () => {
   const dataCollectionRef = collection(db, "bookList");
   const [data, setData] = useState([]);
   const { user } = useAuth();
   const [showDialog, setShowDialog] = useState(false);
   const [value, setValue] = useState("");
+  const [note, showNote] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -27,16 +29,13 @@ const FavoriteBooks = (filtered) => {
       data.docs.forEach((doc) => {
         books.push({ ...doc.data(), id: doc.id });
       });
-      let filtered = books.filter((i) => i.ownerId === user.uid);
+      let filtered = await books.filter((i) => i.ownerId === user.uid);
       setData(filtered);
       console.log(filtered);
     };
     getData();
   }, []);
 
-  // console.log(user.uid, data);
-  //
-  //
   const handleRemove = async (id) => {
     const userDoc = doc(db, "bookList", id);
     await deleteDoc(userDoc);
@@ -55,16 +54,10 @@ const FavoriteBooks = (filtered) => {
     const newFields = { notes: value };
     await updateDoc(userDoc, newFields);
   };
-  console.log(data);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const openNote = () => {
+    showNote((s) => !s);
   };
-
-  // const handleNoteChange = (e) => {
-  //   setValue(e.target.value);
-  //   addNotes(data.id, data.notes);
-  // };
 
   return data.length === 0 ? (
     <div
@@ -88,10 +81,10 @@ const FavoriteBooks = (filtered) => {
               <p>{data.author}</p>
               <p>SCORE {data.rating}</p>
               <button
-                onClick={() => {
-                  setShowDialog("true");
+                onClick={(e) => {
+                  openNote(e);
                 }}>
-                rate this
+                note
               </button>
               <button
                 onClick={() => {
@@ -104,22 +97,6 @@ const FavoriteBooks = (filtered) => {
                 <FaStar />
               </button>
 
-              <textarea
-                css={{
-                  border: "1px solid #f1f1f4",
-                  minHeight: 300,
-                  padding: "8px 12px",
-                }}
-                type='text'
-                defaultValue={data?.notes}
-                onChange={(e) => {
-                  setValue(e.target.value);
-                }}
-                onBlur={() => {
-                  addNotes(data.id, data.notes);
-                }}
-              />
-
               <p>{data.title}</p>
               <p>{data?.desc?.replace(/(<([^>]+)>)/gi, "")}</p>
               <button
@@ -128,25 +105,65 @@ const FavoriteBooks = (filtered) => {
                 }}>
                 Remove from Fav
               </button>
+
+              {note && (
+                <>
+                  <textarea
+                    id={data.id}
+                    css={{
+                      border: "1px solid #f1f1f4",
+                      minHeight: 300,
+                      padding: "8px 12px",
+                      width: "100%",
+                    }}
+                    type='text'
+                    defaultValue={data?.notes}
+                    onChange={(e) => {
+                      setValue(e.target.value);
+                    }}
+                  />
+                  <button
+                    onClick={(e) => {
+                      addNotes(data.id, data.notes);
+                    }}>
+                    add note
+                  </button>
+                </>
+              )}
+
+              <CustomDialog
+                isOpen={showDialog}
+                onDismiss={() => setShowDialog(false)}>
+                <textarea
+                  css={{
+                    border: "1px solid #f1f1f4",
+                    minHeight: 300,
+                    padding: "8px 12px",
+                    width: "100%",
+                  }}
+                  type='text'
+                  defaultValue={data?.notes}
+                  onChange={(e) => {
+                    setValue(e.target.value);
+                  }}
+                />
+                <button
+                  onClick={() => {
+                    addNotes(data.id, data.notes);
+                  }}>
+                  add note
+                </button>
+                <button
+                  onClick={() => {
+                    console.log(value);
+                  }}>
+                  test
+                </button>
+              </CustomDialog>
             </li>
           </>
         ))}
       </BookListUl>
-      {/* <CustomDialog
-        updateScore={updateScore}
-        data={data}
-        isOpen={showDialog}
-        onDismiss={() => setShowDialog(false)}>
-        rate this book
-        <button
-          onClick={() => {
-            updateScore(data.id, data.rating);
-          }}>
-          one star
-        </button>
-        <button>two star</button>
-        <button>three star</button>
-      </CustomDialog> */}
     </div>
   );
 };
