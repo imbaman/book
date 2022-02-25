@@ -35,6 +35,7 @@ const Book = () => {
       desc: data?.volumeInfo?.description,
       img: data?.volumeInfo?.imageLinks?.thumbnail,
       rating: -1,
+      notes: "",
       // book: data.volumeInfo,
     });
   };
