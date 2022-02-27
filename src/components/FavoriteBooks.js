@@ -12,16 +12,16 @@ import {
 import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 import { BookListUl, CustomDialog } from "./lib";
-import { FaStar } from "react-icons/fa";
+import Stars from "./Stars";
 
-const FavoriteBooks = () => {
+const FavoriteBooks = ({ ratingValue }) => {
   const dataCollectionRef = collection(db, "bookList");
   const [data, setData] = useState([]);
   const { user } = useAuth();
   const [showDialog, setShowDialog] = useState(false);
   const [value, setValue] = useState("");
   const [note, showNote] = useState(false);
-
+  const [star, setStar] = useState(0);
   useEffect(() => {
     const getData = async () => {
       const data = await getDocs(dataCollectionRef);
@@ -45,7 +45,7 @@ const FavoriteBooks = () => {
 
   const updateScore = async (id, rating) => {
     const userDoc = doc(db, "bookList", id);
-    const newFields = { rating: rating + 1 };
+    const newFields = { rating: star };
     await updateDoc(userDoc, newFields);
   };
 
@@ -58,6 +58,11 @@ const FavoriteBooks = () => {
   const openNote = () => {
     showNote((s) => !s);
   };
+
+  const updateStar = (index) => {
+    setStar(index);
+  };
+  console.log(star);
 
   return data.length === 0 ? (
     <div
@@ -86,17 +91,11 @@ const FavoriteBooks = () => {
                 }}>
                 note
               </button>
-              <button
-                onClick={() => {
-                  updateScore(data.id, data.rating);
-                }}>
-                <FaStar />
-                <FaStar />
-                <FaStar />
-                <FaStar />
-                <FaStar />
-              </button>
-
+              <Stars
+                updateScore={updateScore}
+                data={data}
+                updateStar={updateStar}
+              />
               <p>{data.title}</p>
               <p>{data?.desc?.replace(/(<([^>]+)>)/gi, "")}</p>
               <button
