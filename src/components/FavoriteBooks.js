@@ -21,7 +21,8 @@ const FavoriteBooks = ({ ratingValue }) => {
   const [showDialog, setShowDialog] = useState(false);
   const [value, setValue] = useState("");
   const [note, showNote] = useState(false);
-  const [star, setStar] = useState(0);
+  const [star, setStar] = useState(data.rating);
+
   useEffect(() => {
     const getData = async () => {
       const data = await getDocs(dataCollectionRef);
@@ -45,7 +46,7 @@ const FavoriteBooks = ({ ratingValue }) => {
 
   const updateScore = async (id, rating) => {
     const userDoc = doc(db, "bookList", id);
-    const newFields = { rating: star };
+    const newFields = { rating: star === undefined ? rating : star };
     await updateDoc(userDoc, newFields);
   };
 
@@ -59,11 +60,12 @@ const FavoriteBooks = ({ ratingValue }) => {
     showNote((s) => !s);
   };
 
-  const updateStar = (index) => {
-    setStar(index);
+  const updateStar = (i) => {
+    setStar(i);
+    console.log(ratingValue, "index");
+    console.log(i, "star");
   };
   console.log(star);
-
   return data.length === 0 ? (
     <div
       style={{
@@ -84,7 +86,6 @@ const FavoriteBooks = ({ ratingValue }) => {
             <li key={data.title}>
               <img src={data.img} alt='' />
               <p>{data.author}</p>
-              <p>SCORE {data.rating}</p>
               <button
                 onClick={(e) => {
                   openNote(e);
@@ -130,7 +131,7 @@ const FavoriteBooks = ({ ratingValue }) => {
                 </>
               )}
 
-              <CustomDialog
+              {/* <CustomDialog
                 isOpen={showDialog}
                 onDismiss={() => setShowDialog(false)}>
                 <textarea
@@ -158,7 +159,7 @@ const FavoriteBooks = ({ ratingValue }) => {
                   }}>
                   test
                 </button>
-              </CustomDialog>
+              </CustomDialog> */}
             </li>
           </>
         ))}
