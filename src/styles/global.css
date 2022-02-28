@@ -27,9 +27,16 @@ a:focus {
   color: #ffe55c;
 } */
 
-button {
+/* button {
   background-color: #fff;
 }
 button:hover {
   background-color: #ffe59c;
+} */
+
+.on {
+  color: #ffe59c;
+}
+.off {
+  color: aliceblue;
 }
