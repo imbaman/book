@@ -18,9 +18,9 @@ const FavoriteBooks = ({ ratingValue }) => {
   const dataCollectionRef = collection(db, "bookList");
   const [data, setData] = useState([]);
   const { user } = useAuth();
-  const [showDialog, setShowDialog] = useState(false);
+  const [showDialog, setShowDialog] = useState("none");
   const [value, setValue] = useState("");
-  const [note, showNote] = useState(false);
+  // const [note, showNote] = useState(false);
   const [star, setStar] = useState(data.rating);
 
   useEffect(() => {
@@ -56,9 +56,9 @@ const FavoriteBooks = ({ ratingValue }) => {
     await updateDoc(userDoc, newFields);
   };
 
-  const openNote = () => {
-    showNote((s) => !s);
-  };
+  // const openNote = () => {
+  //   showNote((s) => !s);
+  // };
 
   const updateStar = (i) => {
     setStar(i);
@@ -88,7 +88,7 @@ const FavoriteBooks = ({ ratingValue }) => {
               <p>{data.author}</p>
               <button
                 onClick={(e) => {
-                  openNote(e);
+                  setShowDialog(data.id);
                 }}>
                 note
               </button>
@@ -106,22 +106,24 @@ const FavoriteBooks = ({ ratingValue }) => {
                 Remove from Fav
               </button>
 
-              {note && (
+              {/* {note && (
                 <>
-                  <textarea
-                    id={data.id}
-                    css={{
-                      border: "1px solid #f1f1f4",
-                      minHeight: 300,
-                      padding: "8px 12px",
-                      width: "100%",
-                    }}
-                    type='text'
-                    defaultValue={data?.notes}
-                    onChange={(e) => {
-                      setValue(e.target.value);
-                    }}
-                  />
+                  <div key={data.notes}>
+                    <textarea
+                      id={data.id}
+                      css={{
+                        border: "1px solid #f1f1f4",
+                        minHeight: 300,
+                        padding: "8px 12px",
+                        width: "100%",
+                      }}
+                      type='text'
+                      defaultValue={data.notes}
+                      onChange={(e) => {
+                        setValue(e.target.value);
+                      }}
+                    />
+                  </div>
                   <button
                     onClick={(e) => {
                       addNotes(data.id, data.notes);
@@ -129,11 +131,13 @@ const FavoriteBooks = ({ ratingValue }) => {
                     add note
                   </button>
                 </>
-              )}
+              )} */}
 
-              {/* <CustomDialog
-                isOpen={showDialog}
-                onDismiss={() => setShowDialog(false)}>
+              <CustomDialog
+                id={data.id}
+                isOpen={showDialog === data.id}
+                onDismiss={() => setShowDialog(false)}
+                defaultValue={data?.notes}>
                 <textarea
                   css={{
                     border: "1px solid #f1f1f4",
@@ -155,11 +159,11 @@ const FavoriteBooks = ({ ratingValue }) => {
                 </button>
                 <button
                   onClick={() => {
-                    console.log(value);
+                    console.log(data.id);
                   }}>
                   test
                 </button>
-              </CustomDialog> */}
+              </CustomDialog>
             </li>
           </>
         ))}
