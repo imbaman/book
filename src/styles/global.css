@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Fuzzy+Bubbles:wght@400;700&family=Outfit:wght@900&display=swap");
+
 #root {
   color: #222831;
   background-color: hsl(0deg 0% 98%);
@@ -6,6 +8,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+p {
+  font-family: "Courier Prime", monospace;
 }
 html {
   background-color: hsl(0deg 0% 98%);
@@ -35,8 +40,11 @@ button:hover {
 } */
 
 .on {
-  color: #ffe59c;
+  color: #ff9400;
 }
 .off {
   color: aliceblue;
+}
+button {
+  background-color: transparent;
 }
