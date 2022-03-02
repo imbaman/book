@@ -36,12 +36,23 @@ const Button = styled.button(
     // fontSize: "20px",
     // fontWeight: "200",
     // letterSpacing: "1px",
+    fontWeight: "700",
+    color: "#b2b3cd",
+    margin: "0.25em 0.25em 0.25em 0",
     padding: "13px 50px 13px",
-    border: "1px solid black",
+    border: `2px solid ${colors.earth}`,
+    borderRadius: "3px",
     cursor: "pointer",
+    textTransform: "uppercase",
+    transition: "background .4s ease",
     backgroundColor: "rgba(0, 0, 0, 0)",
+
     ":hover": {
-      backgroundColor: colors.yellow,
+      backgroundColor: colors.earth,
+      color: "#fff",
+      border: `2px solid ${colors.earth}`,
+      boxShadow: "0 4px 8px rgba(0,30,84,0.12)",
+      // transform: "translateY(-2px)",
     },
   },
   (props) => ({ backgroundColor: props.color })
@@ -50,7 +61,7 @@ const Button = styled.button(
 const Input = styled.input({
   borderRadius: "1px",
   border: "1px solid #f4f4f4",
-  background: colors.yellow,
+  background: colors.earth,
   padding: "8px 12px",
 });
 
