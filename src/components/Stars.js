@@ -1,5 +1,9 @@
+/** @jsx jsx */
+import { jsx } from "@emotion/react";
+
 import React, { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 const Stars = ({ updateScore, data, updateStar, index }) => {
   const [ratingValue, setRating] = useState(0);
   const [hover, setHover] = useState(0);
@@ -17,10 +21,12 @@ const Stars = ({ updateScore, data, updateStar, index }) => {
 
   return (
     <div>
+      <small>rate this book :</small>
       {[...Array(5)].map((star, index) => {
         index += 1;
         return (
           <button
+            css={{ border: 0 }}
             type='button'
             key={index}
             className={index <= (hover || ratingValue) ? "on" : "off"}
@@ -30,7 +36,8 @@ const Stars = ({ updateScore, data, updateStar, index }) => {
             }}
             onMouseEnter={() => setHover(index)}
             onMouseLeave={() => setHover(ratingValue)}>
-            <FaStar size={25} />
+            <FaStar size={25} css={{}} />
+            {/* stroke: "#ff9400", strokeWidth: "5"  */}
           </button>
         );
       })}
