@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/react";
-
+import { jsx, css } from "@emotion/react";
+import { useParams } from "react-router";
 import React, { useEffect, useState } from "react";
 import {
   getDocs,
@@ -13,8 +13,12 @@ import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 import { BookListUl, CustomDialog } from "./lib";
 import Stars from "./Stars";
+import Book from "./Book";
+import { Link } from "react-router-dom";
+import { Button, ButtonSmall } from "./lib";
 
 const FavoriteBooks = ({ ratingValue }) => {
+  const bookId = useParams();
   const dataCollectionRef = collection(db, "bookList");
   const [data, setData] = useState([]);
   const { user } = useAuth();
@@ -164,6 +168,9 @@ const FavoriteBooks = ({ ratingValue }) => {
                   test
                 </button>
               </CustomDialog>
+              <Link to={`/book/${data.bookId}`}>
+                <ButtonSmall>more info</ButtonSmall>
+              </Link>
             </li>
           </>
         ))}
