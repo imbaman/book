@@ -20,6 +20,17 @@ a:not(:focus) {
   text-decoration: none;
   color: #222831;
 }
+input:focus,
+input[type="email"]:focus,
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+  border-color: #ffc300;
+  outline: 2px solid #ffc300;
+}
+input:hover {
+  border-color: #ffc300;
+}
 
 li {
   list-style: none;
@@ -43,7 +54,7 @@ button:hover {
   color: #ff9400;
 }
 .off {
-  color: aliceblue;
+  color: rgb(89, 133, 160);
 }
 button {
   background-color: transparent;

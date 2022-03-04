@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, keyframes } from "@emotion/react";
+import { jsx, keyframes, css } from "@emotion/react";
 import * as colors from "../styles/colors";
 import styled from "@emotion/styled";
 import Dialog from "@reach/dialog";
@@ -31,6 +31,16 @@ const CustomDialog = styled(Dialog)({
     margin: "10vh 0",
   },
 });
+
+const ButtonSmall = styled.button({
+  border: `2px solid ${colors.earth}`,
+  backgroundColor: "white",
+});
+
+const btnS = css({
+  padding: "0",
+  color: "red",
+});
 const Button = styled.button(
   {
     // fontSize: "20px",
@@ -46,7 +56,10 @@ const Button = styled.button(
     textTransform: "uppercase",
     transition: "background .4s ease",
     backgroundColor: "rgba(0, 0, 0, 0)",
-
+    "& .orange": {
+      color: "red",
+      padding: "50px",
+    },
     ":hover": {
       backgroundColor: colors.earth,
       color: "#fff",
@@ -55,14 +68,14 @@ const Button = styled.button(
       // transform: "translateY(-2px)",
     },
   },
-  (props) => ({ backgroundColor: props.color })
+  (props) => ({ backgroundColor: props.color, padding: props.padding })
 );
 
 const Input = styled.input({
   borderRadius: "1px",
   border: "1px solid #f4f4f4",
-  background: colors.earth,
+  background: `${colors.yellow}`,
   padding: "8px 12px",
 });
 
-export { Button, Input, CustomDialog, Spinner, BookListUl };
+export { btnS, ButtonSmall, Button, Input, CustomDialog, Spinner, BookListUl };

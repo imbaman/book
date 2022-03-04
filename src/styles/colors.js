@@ -1,6 +1,7 @@
-export const yellow = "#ffe55c";
+export const yellow = "#ffefba";
 export const main = "#222831";
-export const earth = "#EB8B2D";
+export const earth = "#FDC830";
+export const gradient = "linear-gradient(to right, #ffefba, #ffffff)";
 export const green = "#00887A";
 export const blue = "#77a6f7";
 export const lightBlue = "#d3e3fc";
