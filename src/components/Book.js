@@ -7,6 +7,7 @@ import { useAuth } from "../context/AuthContext";
 import { db } from "../firebase";
 import { addDoc, collection, getDocs } from "@firebase/firestore";
 import { Button } from "./lib";
+import * as colors from "./../styles/colors";
 const Book = () => {
   const [data, setData] = useState("");
   const { bookId } = useParams();
@@ -80,6 +81,9 @@ const Book = () => {
     ratingsCount,
     description,
     authors,
+    pageCount,
+    categories,
+    publishedDate,
   } = data.volumeInfo || {};
   console.log(data);
   let descShort = description?.replace(/(<([^>]+)>)/gi, "");
@@ -92,6 +96,7 @@ const Book = () => {
         "@media (max-width:420px)": {
           display: "flex",
           flexDirection: "column",
+          padding: "16px",
         },
       }}>
       <div css={{ gridColumn: "span 3" }}>
@@ -135,17 +140,53 @@ const Book = () => {
       <div css={{ gridColumn: "5/13" }}>
         <h1>{title}</h1>
         <p>{authors}</p>
-        <p>{averageRating} rating </p>
+        <p css={{ marginBottom: "0px" }}>
+          <span css={{ fontSize: "30px", fontWeight: "bold" }}>
+            {averageRating}
+          </span>{" "}
+          rating{" "}
+        </p>
         <p>{ratingsCount} rating count</p>
         <p>
           {showMore ? descShort : `${descShort?.substring(0, 250)}...`}
           <button
+            css={{
+              textDecoration: "underline",
+              border: "none",
+              fontWeight: "bold",
+            }}
             onClick={() => {
               setShowMore(!showMore);
             }}>
             {showMore ? "show less" : "show more"}
           </button>
         </p>
+        <p>
+          {pageCount} pages / published date {publishedDate}
+        </p>
+        <ul css={{ padding: "0" }}>
+          {categories?.map((i) => (
+            <span
+              css={{
+                position: "relative",
+                marginRight: "10px",
+                display: "inline-block",
+                "::before": {
+                  content: `''`,
+                  position: "absolute",
+                  bottom: "-2px",
+                  left: "0",
+                  width: "100%",
+                  height: "3px",
+                  borderRadius: "2px",
+                  background: "linear-gradient(to right, #fdc830, #f37335)",
+                  left: "0",
+                },
+              }}>
+              {i}
+            </span>
+          ))}
+        </ul>
 
         {/* <button
         onClick={() => {

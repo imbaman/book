@@ -8,6 +8,7 @@ import Book from "./components/Book";
 import MyLibrary from "./components/MyLibrary";
 import Nav from "./Nav";
 import * as colors from "./styles/colors";
+import { ButtonSmall } from "./components/lib";
 const Authenticated = () => {
   const { user, logout } = useAuth();
 
@@ -15,11 +16,11 @@ const Authenticated = () => {
     <div
       css={{
         margin: "4em auto",
-        maxWidth: "900px",
+        maxWidth: "1328px",
         width: "100%",
         display: "grid",
         gridGap: "3em",
-        gridTemplateColumns: "2fr 9fr",
+        gridTemplateColumns: "repeat(12, minmax(0, 1fr))",
         "@media (max-width:420px)": {
           gridTemplateColumns: "1fr",
           grodTemplateRows: "auto",
@@ -27,10 +28,10 @@ const Authenticated = () => {
           padding: "2em 1em",
         },
       }}>
-      <div>
+      <div css={{ gridColumn: "span 2" }}>
         <div
           css={{
-            backgroundColor: colors.earth,
+            background: colors.gradient,
             display: "flex",
             alignItems: "center",
             position: "absolute",
@@ -41,13 +42,20 @@ const Authenticated = () => {
             justifyContent: "flex-end",
           }}>
           {user.email ? user.email : "Guest"}
-          <button css={{ marginLeft: "10px" }} onClick={logout}>
+          <ButtonSmall css={{ marginLeft: "10px" }} onClick={logout}>
             Log out
-          </button>
+          </ButtonSmall>
         </div>
         <Nav />
       </div>
-      <main css={{ marginTop: "1em" }}>
+      <main
+        css={{
+          marginTop: "1em",
+          gridColumn: "3 / 13",
+          "@media (max-width:420px)": {
+            gridColumn: "1",
+          },
+        }}>
         <RoutesConfig />
       </main>
     </div>
