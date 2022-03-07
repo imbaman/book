@@ -8,7 +8,7 @@ import { useAuth } from "./context/AuthContext";
 import { auth } from "./firebase";
 
 //  clean this up
-//
+// add input error msg
 //
 
 function LoginForm({ buttonText }) {
@@ -37,7 +37,12 @@ function LoginForm({ buttonText }) {
 
         <div css={{ display: "flex", flexDirection: "column" }}>
           <label htmlFor='email'>Email</label>
-          <Input id='email' ref={emailRef} placeholder='test@321.com' />
+          <Input
+            id='email'
+            type='email'
+            ref={emailRef}
+            placeholder='test@321.com'
+          />
         </div>
         <div css={{ display: "flex", flexDirection: "column" }}>
           <label htmlFor='password'>Password</label>
@@ -83,7 +88,12 @@ function RegisterForm({ buttonText }) {
         }}>
         <div css={{ display: "flex", flexDirection: "column" }}>
           <label htmlFor='email'>Email</label>
-          <Input id='email' ref={emailRef} placeholder='test@321.com' />
+          <Input
+            id='email'
+            type='email'
+            ref={emailRef}
+            placeholder='test@321.com'
+          />
         </div>
         <div css={{ display: "flex", flexDirection: "column" }}>
           <label htmlFor='password'>Password</label>
@@ -115,7 +125,8 @@ function Unauthenticated() {
   return (
     <div
       css={{
-        backgroundImage: "linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%)",
+        // backgroundImage: "linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%)",
+        background: "linear-gradient(to right, #ffefba, #ffffff)",
         height: "100vh",
         width: "100%",
       }}>
