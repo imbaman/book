@@ -11,7 +11,8 @@ const BooksForYou = () => {
   const [queried, setQueried] = useState(false);
   const [data, setData] = useState(null);
   const [status, setStatus] = useState("iddle");
-
+  const [value, setValue] = useState(10);
+  const [index, setIndex] = useState(20);
   const isLoading = status === "loading";
   const isSuccess = status === "success";
 
@@ -35,7 +36,6 @@ const BooksForYou = () => {
 
   //fetch dummy data
   useEffect(() => {
-    setStatus("loading");
     const getData = async () => {
       const data = await fetch(
         `https://books.googleapis.com/books/v1/volumes?q=cat&langRestrict=en&filter=paid-ebooks&orderBy=relevance&printType=BOOKS&key=${process.env.REACT_APP_API_KEY}`
@@ -46,6 +46,36 @@ const BooksForYou = () => {
     };
     getData();
   }, []);
+
+  const loadMore = async () => {
+    const data = await fetch(
+      `https://books.googleapis.com/books/v1/volumes?q=${query}&langRestrict=en&filter=paid-ebooks&orderBy=relevance&maxResults=${index}&printType=BOOKS&key=${process.env.REACT_APP_API_KEY}`
+    );
+    const responseData = await data.json();
+    setData(responseData?.items);
+
+    setIndex((i) => i + 10);
+  };
+
+  // useEffect(() => {
+  //   let fetching = false;
+  //   const onScroll = (e) => {
+  //     const { scrollHeight, scrollTop, clientHeight } =
+  //       e.target.scrollingElement;
+
+  //     if (!fetching && scrollHeight - scrollTop <= clientHeight * 1.5) {
+  //       fetching = true;
+  //       console.log("test");
+  //       fetching = false;
+  //       console.log(fetching);
+  //     }
+  //   };
+
+  //   document.addEventListener("scroll", onScroll);
+  //   return () => {
+  //     document.removeEventListener("scroll", onScroll);
+  //   };
+  // }, []);
 
   function handleSearchSubmit(e) {
     e.preventDefault();
@@ -68,6 +98,7 @@ const BooksForYou = () => {
             placeholder='looking for some books?'
             id='search'
             css={{ width: "70%", marginBottom: "1em" }}
+            type='text'
           />
           <label htmlFor='search'>
             <button
@@ -79,7 +110,7 @@ const BooksForYou = () => {
                 background: "transparent",
                 cursor: "pointer",
               }}>
-              {isLoading ? <Spinner /> : <FaSearch aria-label='search' />}
+              <FaSearch aria-label='search' />
             </button>
           </label>
         </form>
@@ -92,9 +123,24 @@ const BooksForYou = () => {
                 </li>
               ))
             ) : (
-              <Spinner />
+              <Spinner
+                size={20}
+                css={{
+                  padding: "50px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                  height: "20vh",
+                }}
+              />
             )}
           </BookListUl>
+          {index === 50 ? (
+            <div>no more items, try search again</div>
+          ) : (
+            <button onClick={loadMore}>Load more</button>
+          )}
         </>
       </div>
     </>
