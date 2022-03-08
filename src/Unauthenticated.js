@@ -6,7 +6,8 @@ import "@reach/dialog/styles.css";
 import { Button, Input, CustomDialog, Spinner } from "./components/lib";
 import { useAuth } from "./context/AuthContext";
 import { auth } from "./firebase";
-
+import { ReactComponent as Logo } from "./components/undraw_bibliophile_re_xarc.svg";
+import * as colors from "./styles/colors";
 //  clean this up
 // add input error msg
 //
@@ -126,7 +127,8 @@ function Unauthenticated() {
     <div
       css={{
         // backgroundImage: "linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%)",
-        background: "linear-gradient(to right, #ffefba, #ffffff)",
+        // background: "linear-gradient(to right, #ffefba, #ffffff)",
+        background: "linear-gradient(to left, #e0eafc, #cfdef3)",
         height: "100vh",
         width: "100%",
       }}>
@@ -138,13 +140,18 @@ function Unauthenticated() {
           flexDirection: "column",
           height: "100%",
         }}>
-        <h1>Logo</h1>
+        <h1>
+          <Logo
+            css={{
+              width: "150px",
+              height: "150px",
+            }}
+          />
+        </h1>
 
         <div css={{ display: "flex" }}>
           <Button onClick={() => setShowDialog("login")}>Log In</Button>
-          <Button color='white' onClick={() => setShowDialog("register")}>
-            Sign up
-          </Button>
+          <Button onClick={() => setShowDialog("register")}>Sign up</Button>
         </div>
 
         <CustomDialog
