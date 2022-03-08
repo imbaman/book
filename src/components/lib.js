@@ -24,6 +24,7 @@ const Spinner = styled(ImSpinner9)({
 });
 
 const CustomDialog = styled(Dialog)({
+  backgroundColor: `${colors.white}`,
   boxShadow: "0px 10px 50px hsla(0, 0%, 0%, 0.33)",
   padding: "1rem",
   [small]: {
@@ -46,24 +47,26 @@ const Button = styled.button(
     // fontSize: "20px",
     // fontWeight: "200",
     // letterSpacing: "1px",
-    fontWeight: "700",
-    color: "#b2b3cd",
+    fontWeight: "bold",
+    fontSize: "1em",
+    color: "#fff",
     margin: "0.25em 0.25em 0.25em 0",
     padding: "13px 50px 13px",
     border: `2px solid ${colors.earth}`,
+
     borderRadius: "3px",
     cursor: "pointer",
     textTransform: "uppercase",
-    transition: "background .4s ease",
-    backgroundColor: "rgba(0, 0, 0, 0)",
+    transition: "all .4s ease",
+    backgroundColor: `${colors.earth}`,
     "& .orange": {
       color: "red",
       padding: "50px",
     },
     ":hover": {
-      backgroundColor: colors.earth,
+      backgroundColor: colors.blue,
       color: "#fff",
-      border: `2px solid ${colors.earth}`,
+      border: `2px solid ${colors.blue}`,
       boxShadow: "0 4px 8px rgba(0,30,84,0.12)",
       // transform: "translateY(-2px)",
     },
@@ -72,9 +75,9 @@ const Button = styled.button(
 );
 
 const Input = styled.input({
-  borderRadius: "1px",
-  border: "1px solid #f4f4f4",
-  background: `${colors.yellow}`,
+  borderRadius: "4px",
+  border: "2px solid #e4e4e4",
+  background: "#fff",
   padding: "8px 12px",
 });
 

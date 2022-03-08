@@ -147,7 +147,7 @@ const Book = () => {
           rating{" "}
         </p>
         <p>{ratingsCount} rating count</p>
-        <p>
+        <p css={{ maxWidth: "80%" }}>
           {showMore ? descShort : `${descShort?.substring(0, 250)}...`}
           <button
             css={{
