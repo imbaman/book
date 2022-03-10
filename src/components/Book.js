@@ -5,16 +5,28 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { db } from "../firebase";
-import { addDoc, collection, getDocs } from "@firebase/firestore";
-import { Button } from "./lib";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "@firebase/firestore";
+import { Button, Spinner } from "./lib";
 import * as colors from "./../styles/colors";
 const Book = () => {
   const [data, setData] = useState("");
   const { bookId } = useParams();
   const { user } = useAuth();
+
   const bookCollectionRef = collection(db, "bookList");
   const [book, setBook] = useState([]);
   const [showMore, setShowMore] = useState(false);
+  const [button, setButton] = useState("add to fav");
+  const [status, setStatus] = useState("");
+  const isLoading = status === "loading";
+  const isSuccess = status === "success";
+
   useEffect(() => {
     const getData = async () => {
       const data = await getDocs(bookCollectionRef);
@@ -31,18 +43,29 @@ const Book = () => {
   }, [data]);
 
   const addBook = async () => {
-    await addDoc(bookCollectionRef, {
-      data,
-      bookId: bookId,
-      ownerId: user.uid,
-      author: data?.volumeInfo?.authors,
-      title: data?.volumeInfo?.title,
-      desc: data?.volumeInfo?.description,
-      img: data?.volumeInfo?.imageLinks?.thumbnail,
-      rating: -1,
-      notes: "",
-      // book: data.volumeInfo,
-    });
+    try {
+      setStatus("loading");
+      await addDoc(bookCollectionRef, {
+        data,
+        bookId: bookId,
+        ownerId: user.uid,
+        author: data?.volumeInfo?.authors,
+        title: data?.volumeInfo?.title,
+        desc: data?.volumeInfo?.description,
+        img: data?.volumeInfo?.imageLinks?.thumbnail,
+        rating: -1,
+        notes: "",
+        // book: data.volumeInfo,
+      });
+      setStatus("success");
+      setButton("added");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleRemove = async (id) => {
+    const userDoc = doc(db, "bookList", id);
+    await deleteDoc(userDoc);
   };
 
   useEffect(() => {
@@ -120,11 +143,20 @@ const Book = () => {
               flexDirection: "column",
             }}>
             {test?.bookId !== bookId ? (
-              <Button padding={5} onClick={addBook}>
-                add to favorite
+              <Button padding={5} onClick={addBook} color={isSuccess && "red"}>
+                {!isLoading && button}
+                {isLoading && <Spinner />}
               </Button>
             ) : (
-              <Button padding={5}>already in favorites</Button>
+              ""
+              // <Button
+              //   padding={5}
+              //   onClick={() => {
+              //     console.log(book);
+              //     handleRemove(book[0].id);
+              //   }}>
+              //   Already in fav
+              // </Button>
             )}
 
             <Button
@@ -187,11 +219,6 @@ const Book = () => {
             </span>
           ))}
         </ul>
-
-        {/* <button
-        onClick={() => {
-          console.log(user.uid, "<-uid", "bookId ->", bookId);
-        }}> */}
       </div>
     </div>
   );
