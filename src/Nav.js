@@ -2,10 +2,10 @@
 import { jsx } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
-
+import * as colors from "./styles/colors";
 const LinkCustom = styled(Link)({
-  ":hover": { textDecoration: "underline" },
-  ":focus": { color: "inherit" },
+  ":hover": { color: `${colors.earth}` },
+  ":focus": { color: `${colors.earth}` },
 });
 
 const Nav = () => {
@@ -14,7 +14,8 @@ const Nav = () => {
       <ul
         css={{
           fontSize: "1rem",
-          fontWeight: "200",
+          fontWeight: "500",
+          textTransform: "uppercase",
         }}>
         <li>
           <LinkCustom to='/'>My library</LinkCustom>

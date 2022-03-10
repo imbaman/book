@@ -1,9 +1,10 @@
 export const yellow = "#ffefba";
+export const white = "#fff";
 export const main = "#222831";
 export const earth = "#FDC830";
 export const gradient = "linear-gradient(to right, #ffefba, #ffffff)";
 export const green = "#00887A";
-export const blue = "#77a6f7";
+export const blue = "hsl(204deg, 67%, 85%)";
+export const grey = "#f6f7fa";
 export const lightBlue = "#d3e3fc";
 export const bg = "#c5cbe3";
-export const honey = "#DCAE1d";
