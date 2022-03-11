@@ -13,10 +13,11 @@ import * as colors from "./styles/colors";
 //
 
 function LoginForm({ buttonText }) {
-  const { loginAsGuest, login } = useAuth();
+  const { loginAsGuest, login, error = "" } = useAuth();
 
   function handleSubmit(e) {
     e.preventDefault();
+    login(auth, emailRef.current.value, passwordRef.current.value);
   }
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -53,14 +54,10 @@ function LoginForm({ buttonText }) {
             type='password'
             placeholder='test123'
           />
+          <p css={{ color: "red", paddingTop: "2px" }}>{error}</p>
         </div>
         <div>
-          <Button
-            onClick={() =>
-              login(auth, emailRef.current.value, passwordRef.current.value)
-            }>
-            {buttonText}
-          </Button>
+          <Button>{buttonText}</Button>
           <Spinner />
         </div>
       </form>
@@ -122,7 +119,7 @@ function RegisterForm({ buttonText }) {
 
 function Unauthenticated() {
   const [showDialog, setShowDialog] = useState("none");
-
+  const { setError } = useAuth();
   return (
     <div
       css={{
@@ -155,7 +152,10 @@ function Unauthenticated() {
         </div>
 
         <CustomDialog
-          onDismiss={() => setShowDialog("false")}
+          onDismiss={() => {
+            setShowDialog("false");
+            setError("");
+          }}
           isOpen={showDialog === "login"}
           aria-label='Login form'>
           <p>login</p>
