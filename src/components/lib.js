@@ -36,6 +36,11 @@ const CustomDialog = styled(Dialog)({
 const ButtonSmall = styled.button({
   border: `2px solid ${colors.earth}`,
   backgroundColor: "white",
+  ":hover": {
+    border: `2px solid ${colors.blue}`,
+    // boxShadow: "0 4px 8px rgba(0,30,84,0.12)",
+    // transform: "translateY(-2px)",
+  },
 });
 
 const btnS = css({
@@ -71,7 +76,11 @@ const Button = styled.button(
       // transform: "translateY(-2px)",
     },
   },
-  (props) => ({ backgroundColor: props.color, padding: props.padding })
+  (props) => ({
+    backgroundColor: props.color,
+    padding: props.padding,
+    border: props.border,
+  })
 );
 
 const Input = styled.input({

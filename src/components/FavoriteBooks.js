@@ -88,28 +88,56 @@ const FavoriteBooks = ({ ratingValue }) => {
         {data.map((data) => (
           <>
             <li key={data.title}>
-              <img src={data.img} alt='' />
-              <p>{data.author}</p>
-              <button
-                onClick={(e) => {
-                  setShowDialog(data.id);
+              <div
+                css={{
+                  lineHeight: "150%",
+                  display: "flex",
+                  borderTop: "1px solid #999999",
+                  padding: "20px 0",
+                  flexWrap: "wrap",
+                  justifyContent: "flex-start",
+                  alignItems: "stretch",
                 }}>
-                note
-              </button>
-              <Stars
-                updateScore={updateScore}
-                data={data}
-                updateStar={updateStar}
-              />
-              <p>{data.title}</p>
-              <p>{data?.desc?.replace(/(<([^>]+)>)/gi, "")}</p>
-              <button
-                onClick={() => {
-                  handleRemove(data.id);
-                }}>
-                Remove from Fav
-              </button>
-
+                <div css={{ marginRight: "10px", padding: "12px" }}>
+                  <img src={data.img} alt='' />
+                </div>
+                <div css={{ maxWidth: "350px", padding: "12px" }}>
+                  <h3 css={{ fontSize: "18px" }}>{data?.title}</h3>
+                  <p>{data?.author}</p>
+                  <p>
+                    {data?.desc?.replace(/(<([^>]+)>)/gi, "").substring(0, 250)}
+                    ..
+                  </p>
+                </div>
+                <div css={{ padding: "12px" }}>
+                  {" "}
+                  <ButtonSmall
+                    css={{ marginBottom: "12px" }}
+                    onClick={(e) => {
+                      setShowDialog(data.id);
+                    }}>
+                    Notes
+                  </ButtonSmall>
+                  <Stars
+                    updateScore={updateScore}
+                    data={data}
+                    updateStar={updateStar}
+                  />
+                  <Link to={`/book/${data.bookId}`}>
+                    <ButtonSmall css={{ marginBottom: "12px" }}>
+                      more info
+                    </ButtonSmall>
+                  </Link>
+                  <br />
+                  <ButtonSmall
+                    onClick={() => {
+                      handleRemove(data.id);
+                    }}>
+                    Remove from Fav
+                  </ButtonSmall>
+                  {/* {data?.data?.volumeInfo?.industryIdentifiers[0]?.identifier} */}
+                </div>
+              </div>
               {/* {note && (
                 <>
                   <div key={data.notes}>
@@ -156,21 +184,13 @@ const FavoriteBooks = ({ ratingValue }) => {
                   }}
                 />
                 <button
-                  onClick={() => {
+                  onClick={(e) => {
                     addNotes(data.id, data.notes);
                   }}>
                   add note
                 </button>
-                <button
-                  onClick={() => {
-                    console.log(data.id);
-                  }}>
-                  test
-                </button>
               </CustomDialog>
-              <Link to={`/book/${data.bookId}`}>
-                <ButtonSmall>more info</ButtonSmall>
-              </Link>
+              {/* <Link to={`/fav/${data.id}`}> */}
             </li>
           </>
         ))}

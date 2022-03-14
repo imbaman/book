@@ -31,7 +31,7 @@ const Authenticated = () => {
       <div css={{ gridColumn: "span 2" }}>
         <div
           css={{
-            background: colors.gradient,
+            borderBottom: "2px solid #f3f3f3",
             display: "flex",
             alignItems: "center",
             position: "absolute",
