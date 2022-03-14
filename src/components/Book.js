@@ -58,7 +58,7 @@ const Book = () => {
         // book: data.volumeInfo,
       });
       setStatus("success");
-      setButton("added");
+      setButton("added to fav");
     } catch (err) {
       console.log(err);
     }
@@ -84,7 +84,7 @@ const Book = () => {
 
   //getting description with html tags so i added regex
   console.log(book, " collection of books where ownerid=userid");
-  console.log(bookId);
+  console.log(bookId, "bookId");
   console.log(user.uid);
 
   // book.filter(book=> book.ownerId === user.uid)
@@ -108,6 +108,7 @@ const Book = () => {
     categories,
     publishedDate,
   } = data.volumeInfo || {};
+
   console.log(data);
   let descShort = description?.replace(/(<([^>]+)>)/gi, "");
   console.log(descShort);
@@ -143,7 +144,12 @@ const Book = () => {
               flexDirection: "column",
             }}>
             {test?.bookId !== bookId ? (
-              <Button padding={5} onClick={addBook} color={isSuccess && "red"}>
+              <Button
+                padding={5}
+                onClick={addBook}
+                color={isSuccess && "hsl(204deg, 67%, 85%)"}
+                border={isSuccess && "2px solid hsl(204deg, 67%, 85%)"}
+                disabled={button !== "add to fav"}>
                 {!isLoading && button}
                 {isLoading && <Spinner />}
               </Button>
