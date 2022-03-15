@@ -78,10 +78,10 @@ const Authenticated = () => {
   function RoutesConfig() {
     return (
       <Routes>
-        <Route path='/' element={<MyLibrary />} />
+        {/* <Route path='/mylib' element={<MyLibrary />} /> */}
         <Route path='/fav' element={<FavoriteBooks />} />
         <Route path='book/:bookId' element={<Book />} />
-        <Route path='/booksearch' element={<BooksForYou />} />
+        <Route path='/' element={<BooksForYou />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     );
