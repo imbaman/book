@@ -17,14 +17,12 @@ const Nav = () => {
           fontWeight: "500",
           textTransform: "uppercase",
         }}>
-        <li>
-          <LinkCustom to='/'>My library</LinkCustom>
-        </li>
+        <li>{/* <LinkCustom to='/mylib'>My library</LinkCustom> */}</li>
         <li>
           <LinkCustom to='fav'>Favorite books</LinkCustom>
         </li>
         <li>
-          <LinkCustom to='booksearch'>Books for you</LinkCustom>
+          <LinkCustom to='/'>Books for you</LinkCustom>
         </li>
       </ul>
     </nav>
