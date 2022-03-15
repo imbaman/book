@@ -11,8 +11,8 @@ const BooksForYou = () => {
   const [queried, setQueried] = useState(false);
   const [data, setData] = useState(null);
   const [status, setStatus] = useState("iddle");
-  const [value, setValue] = useState(10);
   const [index, setIndex] = useState(20);
+
   const isLoading = status === "loading";
   const isSuccess = status === "success";
 
@@ -34,7 +34,7 @@ const BooksForYou = () => {
     getData();
   }, [query, queried]);
 
-  //fetch dummy data
+  // fetch dummy data
   useEffect(() => {
     const getData = async () => {
       const data = await fetch(
@@ -43,6 +43,7 @@ const BooksForYou = () => {
       const responseData = await data.json();
       setData(responseData.items);
       setStatus("success");
+      setQuery("cat");
     };
     getData();
   }, []);
@@ -57,29 +58,8 @@ const BooksForYou = () => {
     setIndex((i) => i + 10);
   };
 
-  // useEffect(() => {
-  //   let fetching = false;
-  //   const onScroll = (e) => {
-  //     const { scrollHeight, scrollTop, clientHeight } =
-  //       e.target.scrollingElement;
-
-  //     if (!fetching && scrollHeight - scrollTop <= clientHeight * 1.5) {
-  //       fetching = true;
-  //       console.log("test");
-  //       fetching = false;
-  //       console.log(fetching);
-  //     }
-  //   };
-
-  //   document.addEventListener("scroll", onScroll);
-  //   return () => {
-  //     document.removeEventListener("scroll", onScroll);
-  //   };
-  // }, []);
-
   function handleSearchSubmit(e) {
     e.preventDefault();
-    // console.log(e.target.elements.search.value);
     setQuery(e.target.elements.search.value);
     setQueried(true);
   }
@@ -91,7 +71,6 @@ const BooksForYou = () => {
           maxWidth: 800,
           margin: "auto",
           width: "90%",
-          // padding: "40px 0",
         }}>
         <form onSubmit={handleSearchSubmit}>
           <Input
