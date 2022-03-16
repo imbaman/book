@@ -7,10 +7,6 @@ import { Button, Input, CustomDialog, Spinner } from "./components/lib";
 import { useAuth } from "./context/AuthContext";
 import { auth } from "./firebase";
 import { ReactComponent as Logo } from "./components/undraw_bibliophile_re_xarc.svg";
-import * as colors from "./styles/colors";
-//  clean this up
-// add input error msg
-//
 
 function LoginForm({ buttonText }) {
   const { loginAsGuest, login, error = "" } = useAuth();
@@ -29,6 +25,7 @@ function LoginForm({ buttonText }) {
           "> div": { margin: "10px auto", maxWidth: "350px", width: "100%" },
         }}>
         <div css={{ display: "flex", flexDirection: "column" }}>
+          <h2>login</h2>
           <Button
             onClick={() => {
               loginAsGuest(auth);
@@ -58,7 +55,7 @@ function LoginForm({ buttonText }) {
         </div>
         <div>
           <Button>{buttonText}</Button>
-          <Spinner />
+          {/* <Spinner /> */}
         </div>
       </form>
     </div>
@@ -85,6 +82,7 @@ function RegisterForm({ buttonText }) {
           "> div": { margin: "10px auto", maxWidth: "350px", width: "100%" },
         }}>
         <div css={{ display: "flex", flexDirection: "column" }}>
+          <h2>register</h2>
           <label htmlFor='email'>Email</label>
           <Input
             id='email'
@@ -110,7 +108,7 @@ function RegisterForm({ buttonText }) {
             }}>
             {buttonText}
           </Button>
-          <Spinner />
+          {/* <Spinner /> */}
         </div>
       </form>
     </div>
@@ -158,7 +156,6 @@ function Unauthenticated() {
           }}
           isOpen={showDialog === "login"}
           aria-label='Login form'>
-          <p>login</p>
           <LoginForm buttonText={"login"} showDialog={showDialog} />
         </CustomDialog>
 
@@ -166,7 +163,6 @@ function Unauthenticated() {
           onDismiss={() => setShowDialog("false")}
           isOpen={showDialog === "register"}
           aria-label='Register form'>
-          <p>register</p>
           <RegisterForm buttonText={"register"} />
         </CustomDialog>
       </div>
