@@ -56,7 +56,13 @@ export const ProgressBar = ({ data, addPageReaded, updatePage }) => {
             borderRadius: "5px",
           }}></div>
       </div>
-      Page Numbers : {data.data.volumeInfo.pageCount}
+      {page > data.data.volumeInfo.pageCount ? (
+        <div>book finished, good job!</div>
+      ) : (
+        <div>
+          Page Numbers : {page} / {data.data.volumeInfo.pageCount}
+        </div>
+      )}
     </div>
   );
 };
