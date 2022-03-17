@@ -24,6 +24,7 @@ const Book = () => {
   const [showMore, setShowMore] = useState(false);
   const [button, setButton] = useState("add to fav");
   const [status, setStatus] = useState("");
+
   const isLoading = status === "loading";
   const isSuccess = status === "success";
 
@@ -55,6 +56,7 @@ const Book = () => {
         img: data?.volumeInfo?.imageLinks?.thumbnail,
         rating: -1,
         notes: "",
+        readingPage: 0,
         // book: data.volumeInfo,
       });
       setStatus("success");
@@ -149,7 +151,7 @@ const Book = () => {
                 onClick={addBook}
                 color={isSuccess && "hsl(204deg, 67%, 85%)"}
                 border={isSuccess && "2px solid hsl(204deg, 67%, 85%)"}
-                disabled={button !== "add to fav"}>
+                disabled={isSuccess}>
                 {!isLoading && button}
                 {isLoading && <Spinner />}
               </Button>
