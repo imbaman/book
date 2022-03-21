@@ -18,7 +18,6 @@ export const ProgressBar = ({ data, addPageReaded, updatePage }) => {
     addPageReaded(data.id, data.readingPage);
   }, [page]);
   const progress = ((page / data.data.volumeInfo.pageCount) * 100).toFixed(2);
-  //   console.log(progress);
 
   return (
     <div css={{ marginTop: "12px" }}>
@@ -54,6 +53,7 @@ export const ProgressBar = ({ data, addPageReaded, updatePage }) => {
             alignItems: "center",
             justifyContent: "flex-end",
             borderRadius: "5px",
+            transition: "1s ease 0.3s",
           }}></div>
       </div>
       {page > data.data.volumeInfo.pageCount ? (
