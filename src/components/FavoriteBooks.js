@@ -181,7 +181,6 @@ const FavoriteBooks = ({ ratingValue }) => {
                   add note
                 </button>
               </CustomDialog>
-              {/* <Link to={`/fav/${data.id}`}> */}
             </li>
           </>
         ))}

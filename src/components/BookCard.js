@@ -3,12 +3,6 @@ import { jsx, keyframes } from "@emotion/react";
 import { Link } from "react-router-dom";
 
 const BookCard = ({ item }) => {
-  // const grow = keyframes({
-  //   "0%": { transform: "scale(1)" },
-  //   "50%": { transform: "scale(1.03)" },
-  //   "100%": { transform: "scale(1)" },
-  // });
-
   return (
     <div>
       <Link
